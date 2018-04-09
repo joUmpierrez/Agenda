@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using domain = Domain.Cita;
-using service = DAL.CitaService;
+using Domain;
+using DAL;
 
 namespace BLL
 {
     public class CitaController
     {
+        public static String Contacto { get; set; }
     }
 }

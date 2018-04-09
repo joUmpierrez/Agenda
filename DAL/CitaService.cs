@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using domain = Domain.Cita;
+using Domain;
 
 namespace DAL
 {
