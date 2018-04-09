@@ -30,7 +30,7 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "INSERT INTO Contactos nombre, fechaNacimiento, pais, agenda, activo VALUES (@nombre, @fechaNacimiento, @pais, @agenda, @activo)";
+                const String query = "INSERT INTO Contactos (nombre, fechaNacimiento, pais, agenda, activo) VALUES (@nombre, @fechaNacimiento, @pais, @agenda, @activo)";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@nombre", contacto.Nombre);

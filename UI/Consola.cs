@@ -51,8 +51,13 @@ namespace UI
                 Agenda agenda = new Agenda();
 
                 DateTime fechaHoy = DateTime.Now.Date;
+                string sqlFormattedDate = fechaHoy.ToString("yyyy-MM-dd");
                 Console.WriteLine("Ingrese el nombre de su Agenda");
-                String nombre = Console.ReadLine();
+                String nombre;
+                do
+                {
+                    nombre = Console.ReadLine();
+                } while (nombre != "");
 
                 agenda.FechaCreacion = fechaHoy;
                 agenda.Nombre = nombre;
@@ -121,11 +126,10 @@ namespace UI
                     Console.WriteLine("Seleccione su opcion");
                     Console.WriteLine("");
                     Console.WriteLine("1 - Agregar Contacto");
-                    Console.WriteLine("2 - Modificar Contacto");
+                    Console.WriteLine("2 - Ver/Modificar Contacto");
                     Console.WriteLine("3 - Borrar Contacto");
-                    Console.WriteLine("4 - Listar Contactos");
-                    Console.WriteLine("5 - Buscar Contacto");
-                    Console.WriteLine("6 - Buscar Contacto por Pais");
+                    Console.WriteLine("4 - Buscar Contacto");
+                    Console.WriteLine("5 - Buscar Contacto por Pais");
                     Console.WriteLine("0 - Salir");
                     Console.WriteLine("");
 
@@ -134,31 +138,28 @@ namespace UI
                     {
                         bool isNum = int.TryParse(Console.ReadLine(), out opcionAgenda);
 
-                        if (opcion < 0 && opcion > 6)
+                        if (opcion < 0 && opcion > 5)
                         {
                             Console.WriteLine("Ingrese una opcion valida");
                         }
 
-                    } while (opcion < 0 && opcion > 6);
+                    } while (opcion < 0 && opcion > 5);
 
                     switch (opcionAgenda)
                     {
                         case 1:
-                            // Crear Contacto
+                            CrearContacto();
                             break;
                         case 2:
-                            // Modificar Contacto
+                            // Ver/Modificar Contacto
                             break;
                         case 3:
                             // Borrar Contacto
                             break;
                         case 4:
-                            // Listar Contactos
-                            break;
-                        case 5:
                             // Buscar Contacto
                             break;
-                        case 6:
+                        case 5:
                             // Buscar Contacto por Pais
                             break;
                         case 0:
@@ -169,15 +170,46 @@ namespace UI
             }
 
             // Crear Contacto
-            void CrearContacto()
+            Contacto CrearContacto()
             {
                 Contacto contacto = new Contacto();
                 Console.WriteLine("Ingrese el nombre de su Contacto");
-                String nombre = Console.ReadLine();
-                Console.WriteLine("");
-                contacto.Nombre = nombre;
+                String nombre;
+                do
+                {
+                    nombre = Console.ReadLine();
+                } while (nombre != "");
 
+                Console.WriteLine("");
+                Boolean fechaNacimientoValida = false;
+                DateTime fechaNacimiento;
+                do
+                {
+                    Console.WriteLine("Ingrese su nacimiento(AAAA-MM-DD)");
+                    fechaNacimientoValida = DateTime.TryParse(Console.ReadLine(), out fechaNacimiento);
+                    Console.WriteLine("");
+                } while (!fechaNacimientoValida);
+                Console.WriteLine("Ingrese el pais de su Contacto");
+                String pais;
+                do
+                {
+                    pais = Console.ReadLine();
+                } while (pais != "");
+                Console.WriteLine("");
+
+                contacto.Nombre = nombre;
+                contacto.FecNac = fechaNacimiento;
+                contacto.Pais = pais;
                 contacto.Activo = true;
+                contactoController.Crear(contacto);
+
+                Emails email = new Emails();
+                Telefonos telefono = new Telefonos();
+
+
+
+                Console.Clear();
+                return contacto;
             }
 
             // Modificar Contacto
@@ -192,10 +224,16 @@ namespace UI
 
             }
 
+            
             // Listar Contactos
-            List<Contacto> ListarContactos()
+            void MostrarContactos(Agenda agenda)
             {
-
+                Console.Clear();
+                List<Contacto> contactos = contactoController.Mostrar(agenda);
+                for (int i = 0; i < contactos.Count; i++)
+                {
+                    Console.WriteLine(i + " --- " + contactos[i].Nombre);
+                }
             }
 
             // Buscar Contacto
