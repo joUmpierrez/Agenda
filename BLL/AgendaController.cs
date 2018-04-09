@@ -58,10 +58,5 @@ namespace BLL
             return agenda;
         }
 
-        // Selecciona una Agenda
-        public String Seleccionar(Agenda agenda)
-        {
-            return agenda.Nombre;
-        }
     }
 }

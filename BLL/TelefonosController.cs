@@ -68,5 +68,11 @@ namespace BLL
 
             return telefonos;
         }
+
+        // Selecciona un Contacto
+        public void SeleccionarContacto(Contacto contacto)
+        {
+            Contacto = contacto;
+        }
     }
 }

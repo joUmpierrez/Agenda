@@ -32,6 +32,7 @@ namespace BLL
         // Crea un Contacto
         public void Crear(Contacto contacto)
         {
+            contacto.Agenda = Agenda.Nombre;
             contactoService.Guardar(contacto);
         }
 
@@ -97,10 +98,10 @@ namespace BLL
             return contactos;
         }
 
-        // Selecciona un Contacto
-        public String Seleccionar(Contacto contacto)
+        // Selecciona un Agenda
+        public void SeleccionarAgenda(Agenda agenda)
         {
-            return contacto.Nombre;
+            Agenda = agenda;
         }
     }
 }

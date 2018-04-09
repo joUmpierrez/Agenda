@@ -51,5 +51,11 @@ namespace BLL
 
             return emails;
         }
+
+        // Selecciona un Contacto
+        public void SeleccionarContacto(Contacto contacto)
+        {
+            Contacto = contacto;
+        }
     }
 }

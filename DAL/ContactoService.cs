@@ -23,14 +23,14 @@ namespace DAL
         }
         #endregion
 
-        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""Base de Datos - Agenda"";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BaseDeDatos-Agenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         // Guarda un Contacto en la Base de Datos
         public void Guardar(Contacto contacto)
         {
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "INSERT INTO Contactos (nombre, fechaNacimiento, pais, agenda, activo) VALUES (@nombre, @fechaNacimiento, @pais, @agenda, @activo)";
+                const String query = "INSERT INTO Contactos nombre, fechaNacimiento, pais, agenda, activo VALUES (@nombre, @fechaNacimiento, @pais, @agenda, @activo)";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@nombre", contacto.Nombre);
@@ -38,6 +38,8 @@ namespace DAL
                 comando.Parameters.AddWithValue("@pais", contacto.Pais);
                 comando.Parameters.AddWithValue("@agenda", contacto.Agenda);
                 comando.Parameters.AddWithValue("@activo", true);
+
+                int filasAfectas = comando.ExecuteNonQuery();
             }
         }
 
@@ -121,7 +123,7 @@ namespace DAL
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "SELECT (nombre, fechaNacimiento, pais, agenda) FROM Contactos WHERE agenda = @agenda AND activo = @activo AND nombre LIKE '@nombre%'";
+                const String query = "SELECT nombre, fechaNacimiento, pais, agenda FROM Contactos WHERE agenda = @agenda AND activo = @activo AND nombre LIKE '@nombre%'";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@agenda", agenda.Nombre);
@@ -156,7 +158,7 @@ namespace DAL
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "SELECT (nombre, fechaNacimiento, pais, agenda) FROM Contactos WHERE agenda = @agenda AND activo = @activo AND pais = @pais";
+                const String query = "SELECT nombre, fechaNacimiento, pais, agenda FROM Contactos WHERE agenda = @agenda AND activo = @activo AND pais = @pais";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@agenda", agenda.Nombre);

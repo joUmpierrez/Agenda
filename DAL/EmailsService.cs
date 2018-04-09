@@ -23,7 +23,7 @@ namespace DAL
         }
         #endregion
 
-        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""Base de Datos - Agenda"";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BaseDeDatos-Agenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         // Guarda un Telefono para un Contacto en la Base de Datos
         public void Crear(Emails email)
@@ -36,6 +36,8 @@ namespace DAL
                 comando.Parameters.AddWithValue("@contacto", email.Contacto);
                 comando.Parameters.AddWithValue("@email", email.Email);
                 comando.Parameters.AddWithValue("@activo", true);
+
+                int filasAfectas = comando.ExecuteNonQuery();
             }
         }
 
@@ -72,7 +74,7 @@ namespace DAL
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "SELECT (contacto, email) FROM Emails WHERE contacto = @contacto AND activo = @activo";
+                const String query = "SELECT contacto, email FROM Emails WHERE contacto = @contacto AND activo = @activo";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@contacto", contacto.Nombre);

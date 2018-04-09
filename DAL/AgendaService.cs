@@ -23,7 +23,7 @@ namespace DAL
         }
         #endregion
 
-        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""Base de Datos - Agenda"";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BaseDeDatos-Agenda;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         // Guarda una Agenda en la Base de Datos
         public void Guardar(Agenda agenda)
@@ -36,6 +36,8 @@ namespace DAL
                 comando.Parameters.AddWithValue("@nombre", agenda.Nombre);
                 comando.Parameters.AddWithValue("@fechaCreacion", agenda.FechaCreacion);
                 comando.Parameters.AddWithValue("@activo", true);
+
+                int filasAfectas = comando.ExecuteNonQuery();
             }
         }
 
@@ -56,10 +58,9 @@ namespace DAL
         public List<Agenda> MostrarAgendas()
         {
             List<Agenda> agendas = new List<Agenda>();
-
+            const String query = "SELECT nombre, fechaCreacion FROM Agendas WHERE activo = @activo";
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "SELECT (nombre, fechaCreacion) FROM Agendas WHERE activo = @activo";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@activo", true);
@@ -88,7 +89,7 @@ namespace DAL
 
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                const String query = "SELECT (nombre, fechaCreacion) FROM Agendas WHERE activo = @activo AND nombre = @nombre ";
+                const String query = "SELECT nombre, fechaCreacion FROM Agendas WHERE activo = @activo AND nombre = @nombre ";
                 connection.Open();
                 SqlCommand comando = new SqlCommand(query, connection);
                 comando.Parameters.AddWithValue("@nombre", nombre);
