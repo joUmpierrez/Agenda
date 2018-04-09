@@ -8,8 +8,7 @@ namespace BLL
 {
     public class CitaController
     {
-        public static String Contacto { get; set; }
-
+        #region Singleton
         private static CitaController instance;
         public static CitaController Instance
         {
@@ -22,5 +21,9 @@ namespace BLL
                 return instance;
             }
         }
+        #endregion
+
+        CitaService citaController = CitaService.Instance;
+        public static String Contacto { get; set; }
     }
 }

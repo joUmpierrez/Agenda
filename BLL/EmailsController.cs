@@ -8,8 +8,7 @@ namespace BLL
 {
     public class EmailsController
     {
-        public Contacto Contacto { get; set; }
-
+        #region Singleton
         private static EmailsController instance;
         public static EmailsController Instance
         {
@@ -22,23 +21,27 @@ namespace BLL
                 return instance;
             }
         }
+        #endregion
+
+        EmailsService emailsService = EmailsService.Instance;
+        public Contacto Contacto { get; set; }
 
         // Crea un Mail para un Contacto
         public void Crear(Emails email)
         {
-
+            emailsService.Crear(email);
         }
 
         // Modifica el Mail de un Contacto
         public void Modificar(String email, Contacto contacto)
         {
-
+            emailsService.ModificarEmail(email, contacto);
         }
 
         // Elimina el Mail de un Contacto
         public void Borrar(Emails email)
         {
-
+            emailsService.Borrar(email);
         }
 
         // Muestra los email de un Contacto

@@ -8,8 +8,7 @@ namespace DAL
 {
     public class TelefonosService
     {
-        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""Base de Datos - Agenda"";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+        #region Singleton
         private static TelefonosService instance;
         public static TelefonosService Instance
         {
@@ -22,6 +21,9 @@ namespace DAL
                 return instance;
             }
         }
+        #endregion
+
+        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=""Base de Datos - Agenda"";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         // Guarda un Telefono para un Contacto en la Base de Datos
         public void Guardar(Telefonos telefono)
