@@ -8,6 +8,19 @@ namespace BLL
 {
     public class AgendaController
     {
+        private static AgendaController instance;
+        public static AgendaController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new AgendaController();
+                }
+                return instance;
+            }
+        }
+
         // Crear una Agenda
         public void Crear(Agenda agenda)
         {

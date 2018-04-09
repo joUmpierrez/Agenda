@@ -10,6 +10,19 @@ namespace BLL
     {
         public Contacto Contacto { get; set; }
 
+        private static EmailsController instance;
+        public static EmailsController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new EmailsController();
+                }
+                return instance;
+            }
+        }
+
         // Crea un Mail para un Contacto
         public void Crear(Emails email)
         {
@@ -17,7 +30,7 @@ namespace BLL
         }
 
         // Modifica el Mail de un Contacto
-        public void Modificar(String email)
+        public void Modificar(String email, Contacto contacto)
         {
 
         }

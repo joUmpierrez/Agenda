@@ -10,14 +10,27 @@ namespace BLL
     {
         public Contacto Contacto { get; set; }
 
+        private static TelefonosController instance;
+        public static TelefonosController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new TelefonosController();
+                }
+                return instance;
+            }
+        }
+
         // Crea un Telefono para un Contacto
         public void Crear(Telefonos telefono)
         {
 
         }
 
-        // Modifica el Telefono de un Contacto
-        public void Modificar(String tipoTelefono, String telefono)
+        // Modifica el Telefono de un Contacto en la Base de Datos
+        public void Modificar(String tipoTelefono, String telefono, Contacto contacto)
         {
 
         }

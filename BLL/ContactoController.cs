@@ -10,6 +10,19 @@ namespace BLL
     {
         public static Agenda Agenda { get; set; }
 
+        private static ContactoController instance;
+        public static ContactoController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ContactoController();
+                }
+                return instance;
+            }
+        }
+
         // Crea un Contacto
         public void Crear(Contacto contacto)
         {
@@ -17,7 +30,7 @@ namespace BLL
         }
 
         // Modifica un Contacto
-        public void Modificar(DateTime fecNac, String pais)
+        public void Modificar(DateTime fecNac, String pais, Agenda agenda)
         {
 
         }
