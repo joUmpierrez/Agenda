@@ -40,5 +40,13 @@ namespace BLL
         {
 
         }
+
+        // Muestra los email de un Contacto
+        public List<Emails> Mostrar(Contacto contacto)
+        {
+            List<Emails> emails = new List<Emails>();
+
+            return emails;
+        }
     }
 }

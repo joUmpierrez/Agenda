@@ -55,13 +55,53 @@ namespace DAL
         {
             List<Agenda> agendas = new List<Agenda>();
 
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "SELECT (nombre, fechaCreacion) FROM Agendas WHERE activo = @activo";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@activo", true);
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    int posNombre = reader.GetOrdinal("nombre");
+                    int posFechaCreacion = reader.GetOrdinal("fechaCreacion");
+                    while (reader.Read())
+                    {
+                        Agenda agenda = new Agenda();
+                        agenda.Nombre = reader.GetString(posNombre);
+                        agenda.FechaCreacion = reader.GetDateTime(posFechaCreacion);
+
+                        agendas.Add(agenda);
+                    }
+                }
+            }
+
             return agendas;
         }
 
         // Busca una Agenda en la Base de Datos
         public Agenda BuscarAgenda(String nombre)
         {
-            Agenda agenda;
+            Agenda agenda = new Agenda();
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "SELECT (nombre, fechaCreacion) FROM Agendas WHERE activo = @activo AND nombre = @nombre ";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@activo", true);
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    int posNombre = reader.GetOrdinal("nombre");
+                    int posFechaCreacion = reader.GetOrdinal("fechaCreacion");
+                    while (reader.Read())
+                    {
+                        agenda.Nombre = reader.GetString(posNombre);
+                        agenda.FechaCreacion = reader.GetDateTime(posFechaCreacion);
+                    }
+                }
+            }
 
             return agenda;
         }

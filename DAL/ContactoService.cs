@@ -34,7 +34,7 @@ namespace DAL
                 comando.Parameters.AddWithValue("@nombre", contacto.Nombre);
                 comando.Parameters.AddWithValue("@fechaNacimiento", contacto.FecNac);
                 comando.Parameters.AddWithValue("@pais", contacto.Pais);
-                comando.Parameters.AddWithValue("@agenda", contacto.Agenda.Nombre);
+                comando.Parameters.AddWithValue("@agenda", contacto.Agenda);
                 comando.Parameters.AddWithValue("@activo", true);
             }
         }
@@ -83,6 +83,32 @@ namespace DAL
         {
             List<Contacto> contactos = new List<Contacto>();
 
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "SELECT (nombre, fechaNacimiento, pais, agenda) FROM Contactos WHERE agenda = @agenda AND activo = @activo";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@agenda", agenda.Nombre);
+                comando.Parameters.AddWithValue("@activo", true);
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    int posNombre = reader.GetOrdinal("nombre");
+                    int posFechaNacimiento = reader.GetOrdinal("fechaNacimiento");
+                    int posPais = reader.GetOrdinal("pais");
+                    int posAgenda = reader.GetOrdinal("agenda");
+                    while (reader.Read())
+                    {
+                        Contacto contacto = new Contacto();
+                        contacto.Nombre = reader.GetString(posNombre);
+                        contacto.FecNac = reader.GetDateTime(posFechaNacimiento);
+                        contacto.Pais = reader.GetString(posPais);
+                        contacto.Agenda = reader.GetString(posAgenda);
+
+                        contactos.Add(contacto);
+                    }
+                }
+            }
+
             return contactos;
         }
 
@@ -91,6 +117,33 @@ namespace DAL
         {
             List<Contacto> contactos = new List<Contacto>();
 
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "SELECT (nombre, fechaNacimiento, pais, agenda) FROM Contactos WHERE agenda = @agenda AND activo = @activo AND nombre LIKE '@nombre%'";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@agenda", agenda.Nombre);
+                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@activo", true);
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    int posNombre = reader.GetOrdinal("nombre");
+                    int posFechaNacimiento = reader.GetOrdinal("fechaNacimiento");
+                    int posPais = reader.GetOrdinal("pais");
+                    int posAgenda = reader.GetOrdinal("agenda");
+                    while (reader.Read())
+                    {
+                        Contacto contacto = new Contacto();
+                        contacto.Nombre = reader.GetString(posNombre);
+                        contacto.FecNac = reader.GetDateTime(posFechaNacimiento);
+                        contacto.Pais = reader.GetString(posPais);
+                        contacto.Agenda = reader.GetString(posAgenda);
+
+                        contactos.Add(contacto);
+                    }
+                }
+            }
+
             return contactos;
         }
 
@@ -98,6 +151,33 @@ namespace DAL
         public List<Contacto> MostrarContactoPais(String pais, Agenda agenda)
         {
             List<Contacto> contactos = new List<Contacto>();
+
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "SELECT (nombre, fechaNacimiento, pais, agenda) FROM Contactos WHERE agenda = @agenda AND activo = @activo AND pais = @pais";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@agenda", agenda.Nombre);
+                comando.Parameters.AddWithValue("@pais", pais);
+                comando.Parameters.AddWithValue("@activo", true);
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    int posNombre = reader.GetOrdinal("nombre");
+                    int posFechaNacimiento = reader.GetOrdinal("fechaNacimiento");
+                    int posPais = reader.GetOrdinal("pais");
+                    int posAgenda = reader.GetOrdinal("agenda");
+                    while (reader.Read())
+                    {
+                        Contacto contacto = new Contacto();
+                        contacto.Nombre = reader.GetString(posNombre);
+                        contacto.FecNac = reader.GetDateTime(posFechaNacimiento);
+                        contacto.Pais = reader.GetString(posPais);
+                        contacto.Agenda = reader.GetString(posAgenda);
+
+                        contactos.Add(contacto);
+                    }
+                }
+            }
 
             return contactos;
         }

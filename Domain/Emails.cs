@@ -7,7 +7,7 @@ namespace Domain
     public class Emails
     {
         public String Email { get; set; }
-        public Contacto Contacto { get; set; }
+        public String Contacto { get; set; }
         public Boolean Activo { get; set; }
     }
 }

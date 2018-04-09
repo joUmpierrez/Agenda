@@ -40,5 +40,13 @@ namespace BLL
         {
 
         }
+
+        // Muestra los telefonos de un Contacto
+        public List<Telefonos> Mostrar(Contacto contacto)
+        {
+            List<Telefonos> telefonos = new List<Telefonos>();
+
+            return telefonos;
+        }
     }
 }
