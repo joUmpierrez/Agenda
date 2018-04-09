@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 using Domain;
+using System.Data.SqlClient;
 
 namespace DAL
 {
     public class ContactoService
     {
+        public static readonly String cadenaConexion = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog = MegaAgenda; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
         // Guarda un Contacto en la Base de Datos
         public void Guardar(Contacto contacto)
         {
-
+            using (SqlConnection connection = new SqlConnection(cadenaConexion))
+            {
+                const String query = "INSERT INTO Contactos (nombre, fechaNacimiento, pais, agenda, activo) VALUES (@nombre, @fechaNacimiento, @pais, @agenda, @activo)";
+                connection.Open();
+                SqlCommand comando = new SqlCommand(query, connection);
+                comando.Parameters.AddWithValue("@nombre", contacto.Nombre);
+                comando.Parameters.AddWithValue("@fechaNacimiento", contacto.FecNac);
+                comando.Parameters.AddWithValue("@pais", contacto.Pais);
+                comando.Parameters.AddWithValue("@agenda", contacto.Agenda.Nombre);
+                comando.Parameters.AddWithValue("@activo", true);
+            }
         }
 
         // Modifica un Contacto en la Base de Datos
