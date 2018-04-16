@@ -29,34 +29,24 @@ namespace BLL
         // Crear una Agenda
         public void Crear(Agenda agenda)
         {
-            agendaService.Guardar(agenda);
+
         }
+
 
         // Borra una Agenda
         public void Borrar(Agenda agenda)
         {
-            List<Contacto> contactos = contactoService.MostrarContactos(agenda);
 
-            foreach (Contacto contacto in contactos)
-            {
-                contactoService.Borrar(contacto);
-            }
-            agendaService.Borrar(agenda);
         }
+
 
         // Muestra Todas las Agendas
-        public List<Agenda> Mostrar()
-        {
-            List<Agenda> agendasMostrar = agendaService.MostrarAgendas();
-            return agendasMostrar;
-        }
+        //public List<Agenda> Mostrar()
+
 
         // Busca una Agenda
-        public Agenda Buscar(String nombre)
-        {
-            Agenda agenda = agendaService.BuscarAgenda(nombre);
-            return agenda;
-        }
+        //public Agenda Buscar(String nombre)
+
 
     }
 }

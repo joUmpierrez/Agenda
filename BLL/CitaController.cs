@@ -24,6 +24,13 @@ namespace BLL
         #endregion
 
         CitaService citaController = CitaService.Instance;
-        public static String Contacto { get; set; }
+        public static Contacto Contacto { get; set; }
+
+        // Selecciona un Contacto
+        public void SeleccionarContacto(Contacto contacto)
+        {
+
+        }
+
     }
 }
