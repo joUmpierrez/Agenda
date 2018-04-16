@@ -1,0 +1,32 @@
+LABORATORIO - PRÁCTICA DE ADO.NET CONECTADO. 
+OBJETIVOS:  
+• Introducir un patrones de arquitectura.
+• Implementar las operaciones CRUD  habituales utilizando ADO.NET conectado. 
+• Encapsular la cadena de conexión en un único punto global: el archivo de configuración (App.Config en una aplicación de consola, Web.Config en una aplicación web - a futuro) y acceder a través de System.Configuration.ConfigurationManager. 
+• Apoyarse en una aplicación de consola para realizar el testing.  
+
+IMPLEMENTACIÓN:  
+• Nuestro objetivo es la implementación de una agenda de contactos que por el momento se utilizará como agenda personal, pero en un futuro podría compartirse con otros usuarios para tener una agenda común de contactos y citas asociadas. En esta primera etapa solamente diseñaremos los requerimientos: 
+RF01 - Inicializar la agenda. Se incluirán la fecha de creación, un nombre de agenda.
+RF02 - Incluir un nuevo contacto en la agenda. El contacto deberá al menos incluir su nombre, su fecha de nacimiento, su email (único), por país, y uno o más teléfonos. Interesa saber el número de teléfono (lo dejaremos como texto, para poder incluir teléfonos estilo 0800-Hola), si es móvil, fijo del hogar, o fijo del trabajo. 
+RF03 - Modificar el contacto: ingresar un nuevo teléfono, eliminar un teléfono, modificar su mail, ingresar uno nuevo, eliminar uno. El nombre es inmodificable. 
+RF04 - Eliminar un contacto: por el momento los contactos no tienen citas, pero se debe prever que en un futuro las tengan, y para eliminar contactos que tengan citas asociadas pendientes (a futuro), se deberá previamente eliminarlo de esas citas. 
+RF05 - Listar todos los contactos. Se emitirá un listado de los contactos con todos sus datos. 
+RF06 - Búsqueda de un contacto. Se podrá buscar por mail o por identificador. 
+RF07 - Búsqueda de contactos  de un país dado. Se ingresa el país y se retornan todos los contactos de ese país. 
+RF08 - Agendar una cita. Se ingresa la fecha, la hora, se agregan contactos a la cita, verificando que un contacto no se agregue 2 veces a la misma cita, y que no tenga una cita en esa fecha y rango horario. 
+
+RF09 - Modificar una cita: Cambiar la fecha, la hora, añadir o eliminar contactos citados. Se debe verificar lo mismo que al agendarla. 
+RF10 - Eliminar una cita. Se ingresa la fecha, la hora, se busca la cita y se elimina.  
+
+PRIMERA ETAPA:  
+• incluya los métodos para ABM como métodos de instancia, y los de búsquedas, etc., como métodos de clase (en un futuro veremos cómo separarlos usando clases especializadas en búsquedas: Finders). 
+• Implementar en VS 2012 - C#  lo necesario para: 
+ - Separar la aplicación en 2 componentes:  
+ - Presentación, (por el momento para pruebas usaremos app de consola) y  
+ - Lógica de negocios (BLL - Business Logic Layer) como biblioteca de clases. 
+• Crear en SQL Server 2012 la base de datos Agenda. Incluir solamente las tablas que tengan que ver con los contactos. No incluir checks, solamente clave primaria y claves foráneas. 
+Ingresar a SQL Management con seguridad integrada, y si usa la máquina del laboratorio seleccionar la instancia .\SQLSERVER_R12. No olvide guardar o generar los scripts de sus tablas. 
+• Incluir en el app.config una entrada con la cadena de conexión correspondiente a la máquina que esté usando.  
+• Escribir el código para la implementación de los contactos. 
+• Realizar el testing de la  o las clases creadas desde la app de consola.  
